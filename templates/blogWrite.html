@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Write | SaintIC{% endblock %}
+
+{% block head %}
+  <!--引入wangEditor.css-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='wangEditor/css/wangEditor.min.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>撰写文章</h1>
+    <form id="CreateBlogFormId" method="" action="">
+        <p>标题：<input type="text" name="title" placeholder="文章标题" required /></p>
+        <textarea id="editor" style="height:400px; max-height:500px;" name="content">
+           <p>请输入文章内容...</p>
+        </textarea>
+        <!--
+        <button id="btn1">获取内容 </button>
+        <button id="btn2">清空内容 </button>
+        -->
+        <input onclick=postForm() type="button" value="提交博客">
+        <p style="color:red; text-align: center" id="result"></p>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='wangEditor/js/wangEditor.min.js') }}"></script>
+<script type="text/javascript">
+    // 获取元素
+    var div = document.getElementById('editor');
+    // 生成编辑器
+    var editor = new wangEditor(div);
+
+    // 插入代码时的默认语言
+    editor.config.codeDefaultLang = 'python'
+
+    /*
+       上传图片功能，文档地址：http://www.kancloud.cn/wangfupeng/wangeditor2/113990；
+       后台文档地址：http://www.kancloud.cn/wangfupeng/wangeditor2/115736;
+       后台需要配置一个获取表单上传图片并保存的路由。
+    */
+    editor.config.uploadImgUrl = '/uploadimage/';
+    editor.config.uploadImgFileName = 'WriteBlogImage';
+
+    // 创建编辑器
+    editor.create();
+
+    // 提交文章数据
+    function postForm() {
+        /* 在这里写你提交博客的代码(ajax)，或直接表单提交，不做解释。 */
+    };
+</script>
+
+{% endblock %}
