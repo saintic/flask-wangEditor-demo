@@ -29,7 +29,7 @@ def UploadImage():
     app.logger.debug(request.files)
     f = request.files.get("WriteBlogImage")
     if f and allowed_file(f.filename):
-        filename = secure_filename(f.filename) #随机命名
+        filename = secure_filename(f.filename)
         filedir  = os.path.join(app.root_path, UPLOAD_FOLDER)
         if not os.path.exists(filedir): os.makedirs(filedir)
         app.logger.debug(filedir)
@@ -46,10 +46,10 @@ def UploadImage():
         res.headers["Charset"] = "utf-8"
         return res
 
-@app.route("/getimage/")
+@app.route("/test/")
 def GetImage():
     return """<html><body>
-<form action="/upload/image/" method="post" enctype="multipart/form-data" name="upload_form">
+<form action="/uploadimage/" method="post" enctype="multipart/form-data" name="upload_form">
   <label>选择图片文件</label>
   <input name="WriteBlogImage" type="file" accept="image/gif, image/jpeg"/>
   <input name="upload" type="submit" value="上传" />
